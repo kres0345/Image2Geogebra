@@ -15,10 +15,12 @@ namespace Image2Geogebra
     class Program
     {
         const string Prefix = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<geogebra format=\"5.0\" version=\"5.0.518.0\" app=\"classic\" platform=\"d\" id=\"1ea62ef6-7e82-4847-b18f-ff610bd4273a\"  xsi:noNamespaceSchemaLocation=\"http://www.geogebra.org/ggb.xsd\" xmlns=\"\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\r\n<gui>\r\n\t<window width=\"1000\" height=\"750\" />\r\n\t<perspectives>\r\n<perspective id=\"tmp\">\r\n\t<panes>\r\n\t\t<pane location=\"\" divider=\"0.25\" orientation=\"1\" />\r\n\t</panes>\r\n\t<views>\r\n\t\t<view id=\"512\" toolbar=\"0 | 1 501 5 19 , 67 | 2 15 45 18 , 7 37 | 514 3 9 , 13 44 , 47 | 16 | 551 550 11 ,  20 22 21 23 , 55 56 57 , 12 | 69 | 510 511 , 512 513 | 533 531 , 534 532 , 522 523 , 537 536 , 535 | 521 520 | 36 , 38 49 560 | 571 30 29 570 31 33 | 17 | 540 40 41 42 , 27 28 35 , 6 , 502\" visible=\"false\" inframe=\"false\" stylebar=\"false\" location=\"1,1,1\" size=\"500\" window=\"100,100,600,400\" />\r\n\t\t<view id=\"4\" toolbar=\"0 || 2020 , 2021 , 2022 , 66 || 2001 , 2003 , 2002 , 2004 , 2005 || 2040 , 2041 , 2042 , 2044 , 2043\" visible=\"false\" inframe=\"false\" stylebar=\"false\" location=\"1,1\" size=\"300\" window=\"100,100,600,400\" />\r\n\t\t<view id=\"8\" toolbar=\"1001 | 1002 | 1003  || 1005 | 1004 || 1006 | 1007 | 1010 || 1008 1009 || 66 68 || 6\" visible=\"false\" inframe=\"false\" stylebar=\"false\" location=\"1,3\" size=\"300\" window=\"100,100,600,400\" />\r\n\t\t<view id=\"4097\" visible=\"false\" inframe=\"false\" stylebar=\"true\" location=\"1,1\" size=\"395\" window=\"100,100,700,550\" />\r\n\t\t<view id=\"1\" visible=\"true\" inframe=\"false\" stylebar=\"false\" location=\"1\" size=\"716\" window=\"100,100,600,400\" />\r\n\t\t<view id=\"2\" visible=\"true\" inframe=\"false\" stylebar=\"false\" location=\"3\" size=\"250\" window=\"100,100,600,400\" />\r\n\t\t<view id=\"16\" visible=\"false\" inframe=\"false\" stylebar=\"false\" location=\"1\" size=\"150\" window=\"50,50,500,500\" />\r\n\t\t<view id=\"32\" visible=\"false\" inframe=\"false\" stylebar=\"true\" location=\"1\" size=\"150\" window=\"50,50,500,500\" />\r\n\t\t<view id=\"64\" toolbar=\"0\" visible=\"false\" inframe=\"false\" stylebar=\"false\" location=\"1\" size=\"150\" window=\"50,50,500,500\" />\r\n\t\t<view id=\"70\" toolbar=\"0 || 2020 || 2021 || 2022\" visible=\"false\" inframe=\"false\" stylebar=\"true\" location=\"1\" size=\"150\" window=\"50,50,500,500\" />\r\n\t</views>\r\n\t<toolbar show=\"true\" items=\"0 39 73 62 | 1 501 67 , 5 19 , 72 75 76 | 2 15 45 , 18 65 , 7 37 | 4 3 8 9 , 13 44 , 58 , 47 | 16 51 64 , 70 | 10 34 53 11 , 24  20 22 , 21 23 | 55 56 57 , 12 | 36 46 , 38 49  50 , 71  14  68 | 30 29 54 32 31 33 | 25 17 26 60 52 61 | 40 41 42 , 27 28 35 , 6\" position=\"1\" help=\"false\" />\r\n\t<input show=\"true\" cmd=\"true\" top=\"algebra\" />\r\n\t<dockBar show=\"true\" east=\"true\" />\r\n</perspective>\r\n\t</perspectives>\r\n\t<labelingStyle  val=\"0\"/>\r\n\t<font  size=\"16\"/>\r\n</gui>\r\n<euclidianView>\r\n\t<viewNumber viewNo=\"1\"/>\r\n\t<size  width=\"716\" height=\"565\"/>\r\n\t<coordSystem xZero=\"215.0\" yZero=\"315.0\" scale=\"50.0\" yscale=\"50.0\"/>\r\n\t<evSettings axes=\"true\" grid=\"true\" gridIsBold=\"false\" pointCapturing=\"3\" rightAngleStyle=\"1\" checkboxSize=\"26\" gridType=\"3\"/>\r\n\t<bgColor r=\"255\" g=\"255\" b=\"255\"/>\r\n\t<axesColor r=\"0\" g=\"0\" b=\"0\"/>\r\n\t<gridColor r=\"192\" g=\"192\" b=\"192\"/>\r\n\t<lineStyle axes=\"1\" grid=\"0\"/>\r\n\t<axis id=\"0\" show=\"true\" label=\"\" unitLabel=\"\" tickStyle=\"1\" showNumbers=\"true\"/>\r\n\t<axis id=\"1\" show=\"true\" label=\"\" unitLabel=\"\" tickStyle=\"1\" showNumbers=\"true\"/>\r\n</euclidianView>\r\n<algebraView>\r\n\t<mode val=\"3\"/>\r\n</algebraView>\r\n<kernel>\r\n\t<continuous val=\"false\"/>\r\n\t<usePathAndRegionParameters val=\"true\"/>\r\n\t<decimals val=\"2\"/>\r\n\t<angleUnit val=\"degree\"/>\r\n\t<algebraStyle val=\"0\" spreadsheet=\"0\"/>\r\n\t<coordStyle val=\"0\"/>\r\n</kernel>\r\n<tableview min=\"-2.0\" max=\"2.0\" step=\"1.0\"/>\r\n<scripting blocked=\"false\" disabled=\"false\"/>\r\n<construction title=\"\" author=\"\" date=\"\">";
-        const string Postfix = "</construction></geogebra>";
+        const string Suffix = "</construction></geogebra>";
+        const int ProgressbarRefreshRate = 4;
 
         private static string directoryPath;
         private static string geogebra_xmlPath;
+
 
 
         static int Main(string[] args)
@@ -28,6 +30,7 @@ namespace Image2Geogebra
                 log("You need to specify target image :)");
                 return 1;
             }
+
             if (!File.Exists(args[0]))
             {
                 log("File does not exist :(");
@@ -77,9 +80,18 @@ namespace Image2Geogebra
                     {
                         AddPixelAdvanced(x, y, pixel.R, pixel.G, pixel.B, (float)Math.Round((decimal)pixel.A / 255, 2));
                     }
+
+                    if (y % ProgressbarRefreshRate == 0)
+                    {
+                        Console.Write(ProgressBar.toString(y + 1, image.Height) + "\r");
+                    }
                 }
-                Console.Write($"{x+1} // {image.Width} - {Math.Round((decimal)(x+1)/image.Width * 100, 2)}%\r");
+                Console.Write("\n" + ProgressBar.toString(x + 1, image.Width, true));
+                Console.SetCursorPosition(0, Math.Max(Console.CursorTop - 2, 0));
+                //Console.Write($"{x+1} // {image.Width} - {Math.Round((decimal)(x+1)/image.Width * 100, 2)}%\r");
+                //Console.CursorTop -= 2;
             }
+            Console.WriteLine("\n\nCompressing file...");
 
             return PackFile() == "" ? 1 : 0;
         }
@@ -103,11 +115,20 @@ namespace Image2Geogebra
 
         static string PackFile()
         {
-            AddToFile(Postfix);
-            ZipFile.CreateFromDirectory(directoryPath, directoryPath + ".ggb");
+            AddToFile(Suffix);
+            string file;
+            int iteration = 1;
+
+            file = directoryPath + ".ggb";
+            while (File.Exists(file))
+            {
+                file = directoryPath + $" ({iteration}).ggb";
+                iteration++;
+            }
+            ZipFile.CreateFromDirectory(directoryPath, file);
             Directory.Delete(directoryPath, true);
 
-            return File.Exists(directoryPath + ".ggb") ? directoryPath + ".ggb" : "";
+            return File.Exists(file) ? file : "";
         }        
 
         static void AddPixel_old(int x, int y, int red, int green, int blue)
@@ -208,6 +229,59 @@ namespace Image2Geogebra
         }
 
         private static void log(object stdout) => Console.WriteLine(stdout);
+    }
+
+    public static class ProgressBar
+    {
+        public const char FILL = '=';
+        public const char END = '>';
+        public const char EMPTY = ' ';
+        public const char MARK_START = '[';
+        public const char MARK_END = ']';
+        public const int BAR_WIDTH = 50;
+
+        public static string toString(int current, int max, bool percentage = false)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(' ');
+            sb.Append(current);
+            sb.Append(new string(' ', max.ToString().Length - current.ToString().Length));
+            sb.Append(" / ");
+            sb.Append(max);
+            sb.Append(' ');
+            if (percentage)
+            {
+                sb.Append('(');
+                sb.Append(((float)current / (float)max * 100).ToString("F1"));
+                sb.Append("%) ");
+            }
+            sb.Append(MARK_START);
+
+            int progress = (int)((float)current / (float)max * 100);
+            progress = (int)((float)progress / (float)(100 / BAR_WIDTH));
+
+            for (int i = 0; i < BAR_WIDTH; i++)
+            {
+                if (i == progress)
+                {
+                    sb.Append(END);
+                    continue;
+                }
+
+                if (i < progress)
+                {
+                    sb.Append(FILL);
+                    continue;
+                }
+
+                sb.Append(EMPTY);
+            }
+
+            sb.Append(MARK_END);
+
+            return sb.ToString();
+        }
     }
 }
 
