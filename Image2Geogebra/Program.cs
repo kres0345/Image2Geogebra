@@ -74,17 +74,27 @@ namespace Image2Geogebra
             {
                 for (int y = 0; y < image.Height; y++)
                 {
-                    Color pixel = image.GetPixel(x, y);
-                    //Ignores white
-                    if (!(pixel.R == 255 && pixel.G == 255 && pixel.B == 255))
-                    {
-                        AddPixelAdvanced(x, y, pixel.R, pixel.G, pixel.B, (float)Math.Round((decimal)pixel.A / 255, 2));
-                    }
-
                     if (y % ProgressbarRefreshRate == 0)
                     {
                         Console.Write(ProgressBar.toString(y + 1, image.Height) + "\r");
                     }
+
+                    Color pixel = image.GetPixel(x, y);
+
+                    //ignore transparent
+                    if (pixel.A == 0)
+                    {
+                        continue;
+                    }
+
+                    //ignore white
+                    if (pixel.R == 255 && pixel.G == 255 && pixel.B == 255)
+                    {
+                        continue;
+                    }
+                    
+                    AddPixelAdvanced(x, y, pixel.R, pixel.G, pixel.B, (float)Math.Round((decimal)pixel.A / 255, 2));
+                    
                 }
                 Console.Write("\n" + ProgressBar.toString(x + 1, image.Width, true));
                 Console.SetCursorPosition(0, Math.Max(Console.CursorTop - 2, 0));
